@@ -28,27 +28,40 @@ public class StudentController {
         List<Student> students = studentService.getStudents();
         return new ResponseEntity<> (students, HttpStatus.OK);
     }
+    @GetMapping("/students/{id}")
+    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
+        Student student1 = studentService.getStudent(id);
+
+//        1
+        if (student1 != null) {
+            return new ResponseEntity<> (student1, HttpStatus.OK);
+
+        }
+        else
+            return new ResponseEntity<> (HttpStatus.NOT_FOUND);
+
+//        2   here it will return ok in either way if or if not the student is there
+//            return new ResponseEntity<> (student1, HttpStatus.OK);
+
+    }
+
 
     //    !  Post
     @PostMapping("/students")
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
 
-        Student student1 =studentService.addStudent(student);
-        return new ResponseEntity<> (student1, HttpStatus.CREATED);
+
+        try {
+            Student student1 =studentService.addStudent(student);
+            return new ResponseEntity<> (student1, HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+          return new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
-//
-//    //    !  Get
-//    @GetMapping("/students")
-//    public StudentService getStudentService() {
-//        return studentService.getStudents();
-//    }
-//
-//    //    !  Get
-//    @GetMapping("/students")
-//    public StudentService getStudentService() {
-//        return studentService.getStudents();
-//    }
+
 
 
 
