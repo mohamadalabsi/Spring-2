@@ -48,7 +48,7 @@ public class StudentController {
 
     //    !  Post
     @PostMapping("/students")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    public ResponseEntity<?> addStudent(@RequestBody Student student) {
 
 
         try {
@@ -56,13 +56,50 @@ public class StudentController {
             return new ResponseEntity<> (student1, HttpStatus.CREATED);
         }
         catch (Exception e) {
-          return new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
+          return new ResponseEntity<> (e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
 
 
+
+    //    !  Put
+    @PutMapping("/students/{id}")
+    public ResponseEntity<?> updateStudent(@PathVariable Long id ,@RequestBody Student student) {
+
+
+        Student student1 = studentService.getStudent(id);
+
+        if (student1 == null) {
+            return new ResponseEntity<>("there is no student with this Id  ", HttpStatus.NOT_FOUND);
+
+        }
+        else {
+            try {
+               Student updatedStudent= studentService.updateStudent(id, student);
+                return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
+
+            } catch (Exception e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        }
+    }
+
+    //    !  Delete
+    @DeleteMapping ("/students/{id}")
+    public ResponseEntity<?>  deleteStudent(@PathVariable Long id) {
+        Student student1 = studentService.getStudent(id);
+
+        if (student1 == null) {
+            return new ResponseEntity<>("there is no student with this Id  ", HttpStatus.NOT_FOUND);
+
+        } else
+            studentService.deleteStudent(id);
+            return new ResponseEntity<>("Deleted ", HttpStatus.OK);
+
+    }
 
 
 
