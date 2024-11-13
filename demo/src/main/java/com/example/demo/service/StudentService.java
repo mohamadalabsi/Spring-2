@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.Student;
 import com.example.demo.repo.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +32,15 @@ public class StudentService {
 
 
     public Student addStudent(Student student) {
-        return repo.save(student);
+      Optional <Student>student1=  repo.getEmail(student.getEmail());
+
+        if (student1.isPresent()) {
+            throw  new IllegalStateException("Email is already in use") ;
+        }
+
+            return repo.save(student);
+
+
     }
 
 
