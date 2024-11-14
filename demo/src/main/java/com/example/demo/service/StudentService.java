@@ -45,7 +45,18 @@ public class StudentService {
 
 
     public Student updateStudent(Long id, Student student) {
+
+       Student student1= repo.findById(id).orElseThrow(()-> new IllegalStateException("Student not found")); // this or down there or like in controller
+
+
+
         return repo.save(student);
+//       if (student1 != null) {
+//           return repo.save(student);
+//       }
+//       else
+//           throw  new IllegalStateException("Student not found");
+//
     }
 
     public void deleteStudent(Long id) {

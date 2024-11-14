@@ -50,7 +50,7 @@ public class StudentController {
     @PostMapping("/students")
     public ResponseEntity<?> addStudent(@RequestBody Student student) {
 
-
+// here you have to learn again about post and put
         try {
             Student student1 =studentService.addStudent(student);
             return new ResponseEntity<> (student1, HttpStatus.CREATED);
@@ -69,13 +69,13 @@ public class StudentController {
     public ResponseEntity<?> updateStudent(@PathVariable Long id ,@RequestBody Student student) {
 
 
-        Student student1 = studentService.getStudent(id);
-
-        if (student1 == null) {
-            return new ResponseEntity<>("there is no student with this Id  ", HttpStatus.NOT_FOUND);
-
-        }
-        else {
+//        Student student1 = studentService.getStudent(id);
+//
+//        if (student1 == null) {
+//            return new ResponseEntity<>("there is no student with this Id  ", HttpStatus.NOT_FOUND);
+//
+//        }
+//        else {
             try {
                Student updatedStudent= studentService.updateStudent(id, student);
                 return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
@@ -84,7 +84,9 @@ public class StudentController {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-        }
+//        }
+
+//        you can also here pass what you want to update with the URL and using RequestParam
     }
 
     //    !  Delete
