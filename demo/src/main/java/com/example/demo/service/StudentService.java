@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.Student;
 import com.example.demo.repo.StudentRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -43,11 +44,11 @@ public class StudentService {
 
     }
 
-
+//    @Transactional  now the entity in a maneged state
     public Student updateStudent(Long id, Student student) {
 
        Student student1= repo.findById(id).orElseThrow(()-> new IllegalStateException("Student not found")); // this or down there or like in controller
-
+//      and this IllegalStateException will be by default like INTERNAL_SERVER_ERROR and will stop
 
 
         return repo.save(student);
