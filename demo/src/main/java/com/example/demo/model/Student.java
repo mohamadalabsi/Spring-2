@@ -37,7 +37,7 @@ public class Student {
     @Column(name = "age", nullable = false)
     private int age;
     @Column(name = "email", nullable = false, columnDefinition = "Text"
-//            , unique = true this should not be written here if you want to change the name , but if it does not matter u should write it 
+//            , unique = true this should not be written here if you want to change the name , but if it does not matter u should write it
     )
     private String email;
 //    @Transient  so this does that birthdate will not be a column in ur database , but by get method it will be included because in repo we gave it this class name and it will get all the properties from it also if it is not in the db
